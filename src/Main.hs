@@ -7,6 +7,22 @@ import System.Random
 
 type Point = (Float, Float)
 
+-- | Main function
+-- How to play?
+-- Use 'a' and 'd' keys to move left, resp. right
+-- Use 's' key to restart the game
+main :: IO ()
+main = do
+  g <- newStdGen
+  let is =
+        initialState
+          { randsrc =
+              randomRs
+                (enemyRadius - riverWidthHalf, riverWidthHalf - enemyRadius)
+                g
+          }
+  play window winBackground fps is render eventHandle step
+
 -- | Window configuration
 winHeight, winWidth, winXOffset, winYOffset, fps :: Int
 -- | Window height
@@ -236,15 +252,4 @@ initialState =
 resetGame :: GameState -> GameState
 resetGame game = initialState {randsrc = randsrc game}
 
--- | Main function
-main :: IO ()
-main = do
-  g <- newStdGen
-  let is =
-        initialState
-          { randsrc =
-              randomRs
-                (enemyRadius - riverWidthHalf, riverWidthHalf - enemyRadius)
-                g
-          }
-  play window winBackground fps is render eventHandle step
+
