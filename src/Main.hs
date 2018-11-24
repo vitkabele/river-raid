@@ -9,37 +9,56 @@ type Point = (Float, Float)
 
 -- | Window configuration
 winHeight, winWidth, winXOffset, winYOffset, fps :: Int
+-- | Window height
 winHeight = 500
 
+-- | Window width
 winWidth = 800
 
+-- | Window x axis offset
 winXOffset = 10
 
+-- | Window y axis offset
 winYOffset = winXOffset
 
+-- | Game fps
 fps = 60
 
+-- | Window backgroud color (i.e. river color)
 winBackground :: Color
 winBackground = light blue
 
+-- | Game window description (caption, size, offset)
 window :: Display
 window = InWindow "River Raid" (winWidth, winHeight) (winXOffset, winYOffset)
 
--- | Game configuration
-speedupIndex, bankWidth, moveDiff, riverWidth, riverWidthHalf, enemyRadius, planeRadius ::
-     Float
+-- Game configuration
+-- =====================================
+-- | Width of bank on every side of the river
+bankWidth :: Float
 bankWidth = 250
 
+-- | River width
+riverWidth :: Float
 riverWidth = fromIntegral winWidth - 2 * bankWidth
 
+riverWidthHalf :: Float
 riverWidthHalf = riverWidth / 2
 
+-- | How much faster will be the game with every frame
+speedupIndex :: Float
 speedupIndex = 1.01
 
+-- | How much move the plane in one frame
+moveDiff :: Float
 moveDiff = 3
 
+-- | Size of enemy
+enemyRadius :: Float
 enemyRadius = 15
 
+-- | Size of player
+planeRadius :: Float
 planeRadius = 25
 
 -- | Render the game
@@ -131,6 +150,7 @@ stepPlane (sec, game) = (sec, newGame)
   where
     newGame = mvPlane (aState game) (dState game) game
 
+-- | Implementation of plane movement
 mvPlane :: KeyState -> KeyState -> GameState -> GameState
 mvPlane Up Down game = movePlane DRight game
 mvPlane Down Up game = movePlane DLeft game
@@ -204,12 +224,12 @@ initialState =
     { planeLoc = 0
     , gameSpeed = 1.5
     , enemies = []
-    , randsrc = [] -- ^ Source of random numbers
+    , randsrc = []
     , aState = Up
     , dState = Up
     , stopped = False
     , score = 0
-    , difficulty = 10 -- ^ difficulty ratio: the higher the harder
+    , difficulty = 10 -- difficulty ratio: the higher the harder
     }
 
 -- | Reset game state to initial values, except the random source
