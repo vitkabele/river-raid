@@ -16,7 +16,7 @@ version:             0.1.0.0
 synopsis:            Simple clone of Atari *river raid* game
 
 -- A longer description of the package.
--- description:
+description:         Simple clone of Atari *river raid* game
 
 -- URL for the project homepage or repository.
 homepage:            https://github.com/vitkabele/river-raid
