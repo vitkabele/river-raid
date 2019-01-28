@@ -63,7 +63,7 @@ riverWidthHalf = riverWidth / 2
 
 -- | How much faster will be the game with every frame
 speedupIndex :: Float
-speedupIndex = 1.01
+speedupIndex = 0.001
 
 -- | How much move the plane in one frame
 moveDiff :: Float
@@ -158,7 +158,7 @@ step sec game =
 -- | Speedup game
 stepSpeedup :: (Float, GameState) -> (Float, GameState)
 stepSpeedup (sec, game) =
-  (sec, game {gameSpeed = gameSpeed game * speedupIndex})
+  (sec, game {gameSpeed = gameSpeed game + speedupIndex})
 
 -- | Move plane according to pressed keys
 stepPlane :: (Float, GameState) -> (Float, GameState)
@@ -238,14 +238,14 @@ initialState :: GameState
 initialState =
   Game
     { planeLoc = 0
-    , gameSpeed = 1.5
+    , gameSpeed = 1.2
     , enemies = []
     , randsrc = []
     , aState = Up
     , dState = Up
     , stopped = False
     , score = 0
-    , difficulty = 10 -- difficulty ratio: the higher the harder
+    , difficulty = 7 -- difficulty ratio: the higher the harder
     }
 
 -- | Reset game state to initial values, except the random source
