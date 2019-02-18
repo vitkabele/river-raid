@@ -3,6 +3,7 @@ module Main where
 import Graphics.Gloss
 import Graphics.Gloss.Data.ViewPort
 import Graphics.Gloss.Interface.Pure.Game
+import Control.Monad.Trans.State;
 import System.Random
 
 type Point = (Float, Float)
@@ -80,8 +81,9 @@ planeRadius = 25
 -- | Render the game
 render :: GameState -> Picture
 render game =
-  pictures $
-  snd $ renderPlane $ renderScore $ renderEnemies $ renderGround (game, [])
+  pictures .
+  snd . renderPlane . renderScore . renderEnemies $ renderGround (game, [])
+
 
 -- | Render the ground around the river
 renderGround :: (GameState, [Picture]) -> (GameState, [Picture])
